@@ -1,5 +1,6 @@
 //server.js
 const express = require('express');
+const path = require("node:path");
 const bookRouter = require('./routes/bookRouter');
 const authorRouter = require('./routes/authorRouter');
 const indexRouter = require("./routes/indexRouter")
@@ -10,6 +11,12 @@ const port = 3000;
 app.use('/books', bookRouter);
 app.use('/authors', authorRouter);
 app.use('/', indexRouter);
+
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
+const assetsPath = path.join(__dirname, "public");
+app.use(express.static(assetsPath));
 
 
 app.listen(port, () => {
